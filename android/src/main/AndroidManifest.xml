@@ -1,0 +1,57 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.ujk.flutter_ezviz">
+
+
+
+    <!-- sdk所需权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- demo所需权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- App receives push messages."my_app_package.push.sdk.permission.EZVIZ_MESSAGE" -->
+    <permission
+        android:name="ezviz.ezopensdk.push.sdk.permission.EZVIZ_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="ezviz.ezopensdk.push.sdk.permission.EZVIZ_MESSAGE" />
+
+    <permission
+        android:name="ezviz.ezopensdk.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="ezviz.ezopensdk.permission.C2D_MESSAGE" /> <!-- App receives GCM messages. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" /> <!-- GCM connects to Google Services. -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application>
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <activity
+            android:name="com.videogo.main.EzvizWebViewActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+
+        <receiver android:name=".EzvizBroadcastReceiver"
+            android:exported="false"
+            />
+    </application>
+</manifest>
