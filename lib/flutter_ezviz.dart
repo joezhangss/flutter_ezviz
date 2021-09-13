@@ -91,6 +91,94 @@ class FlutterEzviz {
     });
   }
 
+  /**
+   * 跟设备联网成功后，需要调用stopWifi。
+   * 这里是声波连接和wifi连接
+   *
+   */
+  static Future<int> connectWifi(String deviceSerial, String pwd, String wifiName) async{//, String currentDeviceType, int supportType
+    /**
+     * 1, 设备正在连接WiFi
+     * 2, 设备连接WiFi成功
+     * 3, 设备注册平台成功
+     * 4, 设备已经绑定账户
+     *
+     */
+    return _channel.invokeMethod('connectWifi',[deviceSerial, pwd, wifiName]);
+  }
+
+  //停止连接wifi
+  static Future<void> stopWifi() async{
+    _channel.invokeMethod("stopWifi");
+  }
+
+
+  //检查设备，传入序列号和设备型号
+  static Future<Map> checkDevice(String deviceSerial, String deviceType){
+    /**
+     * 根据设备状态来拿其他数据
+     *  NSDictionary *dict = @{
+        @"defaultPicPath":deviceInfo.defaultPicPath,
+        @"displayName":deviceInfo.displayName,
+        @"status": @(deviceInfo.status),
+        @"supportExt" : deviceInfo.supportExt,
+        @"subSerial" : deviceInfo.subSerial,
+        @"deviceStatus": @(1),
+        @"deviceMessage": @"",
+        @"supportConnectType": 0//0:是根据闪灯来选择配网(红蓝闪烁为普通的配网方式，蓝灯闪烁为AP配网方式)；1：支持声波配网；2：支持AP配网；3：支持smartConfig配网
+        };
+        deviceStatus:
+        //1：设备已在线，可进行添加；
+        //2：已添加过此设备；
+        //3：此设备已被别人添加；
+        //4：查询到设备信息，根据根据设备闪灯情况选择合适的配网方式；
+        //5：查询失败，网络不给力,可进行重试：
+        //6：根据设备能力选择合适的配网方式
+     */
+    return _channel.invokeMethod('checkDevice', [deviceSerial, deviceType]);
+//    map["defaultPicPath"];
+  }
+
+  //绑定设备
+  static Future<String> bindDevice(String deviceSerial, String verifyCode){
+    return _channel.invokeMethod('bindDevice',[deviceSerial, verifyCode]);
+  }
+  
+  //ap配网,deviceSerial：设备序列号， verifyCode：验证码
+  static Future<String> apWifiConfig(String deviceSerial,String verifyCode, String pwd, String wifiName)
+  {
+    return _channel.invokeMethod('apWifiConfig', [pwd, deviceSerial, verifyCode, wifiName]);
+  }
+
+  //停止ap配网
+  static Future<void> stopApWifiConfig()
+  {
+    _channel.invokeMethod('stopApWifiConfig');
+  }
+
+  //获取wifi名称
+  static Future<String> getWifiName()
+  {
+    return _channel.invokeMethod('getWifiName');
+  }
+
+  //切换wifi
+  static Future<String> switchWifi(String wifiName, String wifiPwd) {
+    return _channel.invokeMethod('switchWifi',[wifiName, wifiPwd]);
+  }
+
+  //设置设备的视频图片是否加密
+  static Future<void> setDeviceVedioEncrypt(String verifyCode, String deviceSerial, {bool isOpen = false}){
+    String status = "NO";
+    if(isOpen){
+      status = "YES";
+    }else{
+      status = "NO";
+    }
+    _channel.invokeMethod('setDeviceVedioEncrypt', [deviceSerial, verifyCode, status]);
+  }
+
+
   ///获取一个SurfaceView
   static String getSurfaceView() => "com.ujk.flutter_ezviz.SurfaceViewPlatform";
 }

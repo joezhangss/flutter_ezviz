@@ -23,18 +23,52 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 28
-
+//    ndk {
+//        abiFilters "armeabi-v7a", "arm64-v8a"
+//    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+//    javaCompileOptions {
+//        annotationProcessorOptions {
+//            includeCompileClasspath = true
+//        }
+//    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
     defaultConfig {
         minSdkVersion 16
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
+        javaCompileOptions {
+            annotationProcessorOptions { includeCompileClasspath = true }
+        }
+        multiDexEnabled true
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a"
+        }
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_7
+            targetCompatibility JavaVersion.VERSION_1_7
+        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
+        }
+//    multiDexEnabled true
     lintOptions {
         disable 'InvalidPackage'
     }
 
     dependencies {
-        implementation 'com.hikvision.ezviz:ezviz-sdk:4.8.8'
+        implementation 'com.hikvision.ezviz:ezviz-sdk:4.9.0.2'
         implementation 'com.hikvision.ezviz:ezuikit:2.1'
+        implementation 'org.apache.commons:commons-lang3:3.8.1'
     }
 }
 
