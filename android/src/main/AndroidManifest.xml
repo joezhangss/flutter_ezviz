@@ -26,9 +26,9 @@
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- App receives push messages."my_app_package.push.sdk.permission.EZVIZ_MESSAGE" -->
-    <permission
+    <!-- <permission
         android:name="ezviz.ezopensdk.push.sdk.permission.EZVIZ_MESSAGE"
-        android:protectionLevel="signature" />
+        android:protectionLevel="signature" /> -->
 
     <uses-permission android:name="ezviz.ezopensdk.push.sdk.permission.EZVIZ_MESSAGE" />
 
